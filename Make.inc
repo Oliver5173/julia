@@ -1,12 +1,11 @@
 # -*- mode: makefile-gmake -*-
 
 ## Note:
-##   It is generally preferable to change these options, for
-##   your local machine, in a file named `Make.user` in the toplevel
-##   and build directories
+##   Change these options for your local machine in a file
+##   named `Make.user` in the toplevel and build directories.
 ##
-## For developers, take care to not insert comments on the same line as
-## variable declarations. The spaces between the variable value and the
+## Do not insert comments on the same line as variable 
+## declarations. The spaces between the variable value and the
 ## comment will be included in the value.
 
 # OPENBLAS build options
@@ -136,23 +135,22 @@ NO_GIT := 1
 endif
 
 # Julia's Semantic Versioning system labels the three decimal places in a version number as
-# the major, minor and patch versions.  Typically the major version would be incremented
-# whenever a backwards-incompatible change is made, the minor version would be incremented
-# whenever major backwards-compatible changes are made, and the patch version would be
-# incremented whenever smaller changes are made.  However, before v1.0.0, the major
-# version number is always zero and the meanings shift down a place; the minor version
-# number becomes the major version number, the patch version number becomes the minor
-# version number, and there is no patch version number to speak of.  In this case, the
-# version v0.4.1 has backwards-compatible changes as compared to v0.4.0, and the
-# version v0.5.0 has major backwards-incompatible changes as compared to v0.4.X.
+# the major, minor and patch versions. The major version would be incremented when a 
+# backwards-incompatible change is made. The minor version would be incremented when major
+# backwards-compatible changes are made. The patch version would be incremented when smaller
+# changes are made. Before v1.0.0, the major version number is zero and the meanings shift 
+# down a place. The minor version number becomes the major version number. The patch version
+# number becomes the minor version number. There is no patch version number. The version 
+# v0.4.1 has backwards-compatible changes as compared to v0.4.0. The version v0.5.0 has major
+# backwards-incompatible changes as compared to v0.4.X.
 JULIA_VERSION := $(shell cat $(JULIAHOME)/VERSION)
 JULIA_MAJOR_VERSION := $(shell echo $(JULIA_VERSION) | cut -d'-' -f 1 | cut -d'.' -f 1)
 JULIA_MINOR_VERSION := $(shell echo $(JULIA_VERSION) | cut -d'-' -f 1 | cut -d'.' -f 2)
 JULIA_PATCH_VERSION := $(shell echo $(JULIA_VERSION) | cut -d'-' -f 1 | cut -d'.' -f 3)
 
-# libjulia's SONAME will follow the format libjulia.so.$(SOMAJOR). Before v1.0.0,
-# SOMAJOR will be a two-decimal value, e.g. libjulia.so.0.5, whereas at and beyond
-# v1.0.0, SOMAJOR will be simply the major version number, e.g. libjulia.so.1
+# libjulia's SONAME follows the format libjulia.so.$(SOMAJOR). Before v1.0.0,
+# SOMAJOR is a two-decimal value, e.g. libjulia.so.0.5, whereas at and beyond
+# v1.0.0, SOMAJOR is the major version number, e.g. libjulia.so.1
 # The file itself will ultimately symlink to libjulia.so.$(SOMAJOR).$(SOMINOR)
 ifeq ($(JULIA_MAJOR_VERSION),0)
 SOMAJOR := $(JULIA_MAJOR_VERSION).$(JULIA_MINOR_VERSION)
@@ -543,14 +541,14 @@ endif
 
 # ===========================================================================
 
-# Select the cpu architecture to target, or automatically detects the user's compiler
-# ARCH is the first element of the triple, and gives the CPU class (e.g. x86_64)
-# MARCH is the CPU type, and accepts anything that can be passed to the gcc -march flag
-#    it is set equal to ARCH (for cases where the two are the same, such as i686)
-#    it can be set to native to optimize all code for the user's machine (not just the JIT code)
-#    if MARCH is set newer than the native processor, be forewarned that the compile might fail
-# JULIA_CPU_TARGET is the JIT-only complement to MARCH. Setting it explicitly is not generally necessary,
-#    since it is set equal to MARCH by default
+# Select the cpu architecture to target, or automatically detects the user's compiler,
+# ARCH is the first element of the triple and gives the CPU class (e.g. x86_64).
+# MARCH is the CPU type and accepts anything that can be passed to the gcc -march flag
+#    it is set equal to ARCH for cases where the two are the same, such as i686.
+#    it can be set to native to optimize all code for the user's machine, not just the JIT code.
+#    if MARCH is set newer than the native processor, the compile might fail.
+# JULIA_CPU_TARGET is the JIT-only complement to MARCH. Setting it explicitly is not necessary 
+#    since it is set to equal to MARCH by default
 
 BUILD_MACHINE := $(shell $(HOSTCC) -dumpmachine)
 
@@ -1004,7 +1002,7 @@ endif
 
 # ATLAS
 
-# ATLAS must have been previously  installed to usr/lib/libatlas
+# ATLAS must have been previously installed to usr/lib/libatlas
 # (built as a shared library, for your platform, single threaded)
 USE_ATLAS := 0
 ATLAS_LIBDIR := $(build_libdir)
